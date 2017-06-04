@@ -9,7 +9,9 @@ export class ToDoApp extends Component {
   render() {
     return (
       <Panel>
-        {() => {}}
+        <h1 className="panelHeader">
+          To-dos
+        </h1>
       </Panel>
     );
   }
