@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Panel } from './components';
 
 export class ToDoApp extends Component {
   constructor() {
@@ -7,7 +8,7 @@ export class ToDoApp extends Component {
 
   render() {
     return (
-      <div>Hello World</div>
+      <Panel></Panel>
     );
   }
 }
