@@ -8,7 +8,9 @@ export class ToDoApp extends Component {
 
   render() {
     return (
-      <Panel></Panel>
+      <Panel>
+        {() => {}}
+      </Panel>
     );
   }
 }
