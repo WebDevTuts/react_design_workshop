@@ -1,18 +1,60 @@
 import React, { Component } from 'react';
-import { Panel, PanelHeader, ToDoList, ToDoListItem } from './components';
-import { ToDo } from './models';
+import {
+  Button,
+  HorizontalRule,
+  Label,
+  Panel,
+  PanelHeader,
+  TextInput,
+  ToDoList,
+  ToDoListItem
+} from './components';
+
+import {
+  ToDo
+} from './models';
 
 export class ToDoApp extends Component {
   constructor() {
     super();
 
     this.state = {
+      newToDoBody: '',
       toDos: [
         new ToDo('Build React app'),
         new ToDo('???'),
         new ToDo('Profit!')
       ]
     };
+
+    this.handleCreateToDoFormSubmit = this.handleCreateToDoFormSubmit.bind(this);
+    this.handleNewToDoInputChange = this.handleNewToDoInputChange.bind(this);
+    this.handleCreateToDoClick = this.handleCreateToDoClick.bind(this);
+  }
+
+  canCreateNewToDo() {
+    return this.state.newToDoBody.trim().length > 0;
+  }
+
+  createToDo() {
+    this.setState({
+      toDos: this.state.toDos.concat(new ToDo(this.state.newToDoBody)),
+      newToDoBody: ''
+    });
+  }
+
+  handleCreateToDoFormSubmit(event) {
+    event.preventDefault();
+  }
+
+  handleNewToDoInputChange(event) {
+    this.setState({
+      newToDoBody: event.target.value
+    });
+  }
+
+  handleCreateToDoClick() {
+    this.createToDo();
   }
 
   renderToDos() {
@@ -35,6 +77,26 @@ export class ToDoApp extends Component {
         <ToDoList>
           {this.renderToDos()}
         </ToDoList>
+
+        <HorizontalRule />
+
+        <Label>
+          Create new To-do
+        </Label>
+
+        <form onSubmit={this.handleCreateToDoFormSubmit}>
+          <TextInput
+            value={this.state.newToDoBody}
+            onChange={this.handleNewToDoInputChange}
+            />
+
+          <Button
+            onClick={this.handleCreateToDoClick}
+            isDisabled={!this.canCreateNewToDo()}
+          >
+            Create To-do
+          </Button>
+        </form>
       </Panel>
     );
   }
